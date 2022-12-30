@@ -33,7 +33,7 @@ class _HomePageBody extends StatelessWidget {
     final currentIndex = uiProvider.selectedMenuOpt;
 
     //TODO reade db
-    DBProvider.db.getAllScans().then(print);
+    //DBProvider.db.getAllScans().then(print);
 
     switch (currentIndex) {
       case 0:
