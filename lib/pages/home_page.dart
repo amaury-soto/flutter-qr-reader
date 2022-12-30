@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_qr_reader/pages/pages.dart';
 import 'package:flutter_qr_reader/providers/db_provider.dart';
+import 'package:flutter_qr_reader/providers/scan_list_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_qr_reader/providers/ui_provider.dart';
 import '../widgets/widgets.dart';
@@ -13,7 +14,10 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Historial'),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.abc))],
+        actions: [IconButton(onPressed: () {
+          Provider.of<ScanListProvider>(context, listen: false).deletedAll();
+
+        }, icon: Icon(Icons.delete))],
       ),
       body: _HomePageBody(),
       bottomNavigationBar: CustomNavigatorBar(),
@@ -26,7 +30,6 @@ class HomeScreen extends StatelessWidget {
 class _HomePageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     //obtener currentIndex from provider
     final uiProvider = Provider.of<UiProvider>(context);
 
@@ -35,10 +38,15 @@ class _HomePageBody extends StatelessWidget {
     //TODO reade db
     //DBProvider.db.getAllScans().then(print);
 
+    final scanListProvider =
+        Provider.of<ScanListProvider>(context, listen: false);
+
     switch (currentIndex) {
       case 0:
+        scanListProvider.loadedScanByType('geo');
         return MapsHistory();
       case 1:
+        scanListProvider.loadedScanByType('http');
         return AddressPage();
       default:
         return MapsHistory();
