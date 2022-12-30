@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_qr_reader/pages/pages.dart';
-import 'package:flutter_qr_reader/providers/ui_provider.dart';
+import 'package:flutter_qr_reader/providers/db_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_qr_reader/providers/ui_provider.dart';
 import '../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -30,6 +31,10 @@ class _HomePageBody extends StatelessWidget {
     final uiProvider = Provider.of<UiProvider>(context);
 
     final currentIndex = uiProvider.selectedMenuOpt;
+
+    //TODO reade db
+    DBProvider.db.getAllScans().then(print);
+
     switch (currentIndex) {
       case 0:
         return MapsHistory();
